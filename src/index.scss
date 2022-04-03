@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,11 +6,15 @@
   list-style: none;
   font-family: sans-serif;
 }
-img{
+img {
   width: 100%;
   height: 100%;
 }
 
-body{
+body {
   background: rgb(23, 23, 23);
+}
+
+::-webkit-scrollbar{
+  display: none;
 }

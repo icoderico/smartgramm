@@ -1,0 +1,164 @@
+.lichka {
+  display: grid;
+  grid-template-columns: 75% 25%;
+
+  .mainchat {
+    position: relative;
+    height: 100vh;
+
+    .headchat {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 50px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 25px;
+      color: white;
+    }
+
+    .midchat {
+      position: absolute;
+      background: rgb(47, 47, 47);
+      width: 100%;
+      top: 50px;
+      height: calc(100% - 120px);
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      padding-bottom: 10px;
+      gap: 10px;
+
+      li {
+        display: flex;
+      }
+    }
+
+    .footchat {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0 10px;
+      form {
+        display: flex;
+        padding-bottom: 10px;
+      }
+      input {
+        width: calc(100% - 50px);
+        height: 50px;
+        font-size: 22px;
+        padding: 0 10px;
+        background: none;
+        border: none;
+        outline: none;
+        color: gold;
+      }
+
+      button {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+        border-radius: 50%;
+        background: none;
+        border: 1px solid gold;
+        color: gold;
+        outline: none;
+        &:hover {
+          background: gold;
+          color: black;
+        }
+      }
+    }
+  }
+
+  .search {
+    form {
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      input {
+        font-size: 20px;
+        padding: 2px 3px;
+        background: none;
+        border: none;
+        color: wheat;
+        outline: none;
+        border-bottom: 1px solid gold;
+        &::placeholder{
+            color: gold;
+        }
+      }
+
+      button{
+          color: gold;
+          font-size: 22px;
+          background: none;
+          border: none;
+      }
+    }
+
+    .foundUser{
+        width: 90%;
+        margin: 0 auto;
+        background: rgb(47, 47, 47);
+        text-align: center;
+        padding: 15px 0;
+        border-radius: 10px;
+        color: lightgreen;
+        cursor: pointer;
+    }
+
+    .stikerlar{
+        width: 90%;
+        height: 580px;
+        margin: 10px auto;
+        background: rgb(47, 47, 47);
+        border-radius: 10px;
+        overflow: auto;
+        ul{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            padding: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+            li{
+                font-size: 25px;
+                padding: 10px;
+                border-radius: 10px;
+                &:hover{
+                    background: grey;
+                }
+            }
+        }
+    }
+  }
+}
+
+.leftmes {
+  justify-content: start;
+  padding: 0 5px;
+  .inmes {
+    border: 1px solid gold;
+    font-size: 22px;
+    padding: 10px 25px;
+    color: gold;
+    border-radius: 15px 15px 15px 0;
+  }
+}
+
+.rightmes {
+  padding: 0 5px;
+  justify-content: end;
+  .inmes {
+    background: gold;
+    font-size: 22px;
+    padding: 10px 25px;
+    border-radius: 15px 15px 0px 15px;
+  }
+}

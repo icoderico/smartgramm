@@ -1,0 +1,85 @@
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    gap: 30px;
+
+    .imgWrap{
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+
+    .startMes{
+        a{
+            border: 1px solid rgb(247, 213, 22);
+            padding: 15px 25px;
+            color: rgb(247, 213, 22);
+            border-radius: 10px;
+            transition: .3s;
+            &:hover{
+                background: rgb(247, 213, 22);
+                color: black;
+                box-shadow: 0 0 5px 1px rgb(247, 213, 22);
+            }
+        }
+    }
+
+    .textWelcome{
+        font-family: cursive;
+        color: white;
+        font-size: 22px;
+        padding: 10px 0;
+        display: flex;
+        align-items: baseline;
+        gap: 2px;
+        span{
+            color: rgb(247, 213, 22);
+            margin-left: 2px;
+        }
+
+        .handAnime{
+            animation: handA 1.2s linear infinite;
+            margin-left: 10px;
+            transform: rotate(-20deg);
+            font-size: 25px;
+        }
+    }
+}
+
+
+@keyframes handA{
+    50%{
+        transform: rotate(30deg);
+    }
+}
+
+
+@media (max-width:780px){
+    .home{
+        gap: 20px;
+        .imgWrap{
+            width: 100px;
+            height: 100px;
+        }
+
+        .textWelcome{
+            font-size: 19px;
+            .handAnime{
+                font-size: 20px;
+            }
+        }
+
+        .startMes{
+            a{
+                padding: 10px 25px;
+                font-size: 13px;
+            }
+        }
+    }
+}

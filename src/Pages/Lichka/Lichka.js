@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Lichka.scss";
 
 const Lichka = () => {
@@ -9,6 +10,7 @@ const Lichka = () => {
       .then((res) => res.json())
       .then((data) => setEmoj(data));
   }, []);
+
 
   return (
     <>
@@ -35,6 +37,11 @@ const Lichka = () => {
           </div>
         </div>
 
+        <input type="checkbox" id="check" />
+        <label htmlFor="check" className="labelbar">
+          <i className="fa-solid fa-bars"></i>
+        </label>
+
         <div className="search">
           <form>
             <input type="search" placeholder="Search..." />
@@ -47,11 +54,19 @@ const Lichka = () => {
 
           <div className="stikerlar">
             <ul>
-              {emoj.map(em => (
+              {emoj.map((em) => (
                 <li>{em.char}</li>
               ))}
             </ul>
           </div>
+
+
+
+            <div className="routing">
+              <Link to={"/user"}><i className="fa-solid fa-user"></i></Link>
+              <Link to={"/list"}><i className="fa-solid fa-users"></i></Link>
+            </div>
+
         </div>
       </div>
     </>

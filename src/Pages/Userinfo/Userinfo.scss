@@ -1,0 +1,128 @@
+.userWrap{
+    width: 800px;
+    height: 60vh;
+    margin: 90px auto;
+    border: 1px solid gold;
+    border-radius: 30px;
+    position: relative;
+    background: rgba(47, 47, 47, 0.739);
+
+
+    &::before{
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: gold;
+        border-radius: 50%;
+        bottom: 20px;
+        right: 50px;
+        filter: blur(7px);
+    }
+    &::after{
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: lightgreen;
+        border-radius: 50%;
+        bottom: 25px;
+        right: 180px;
+        filter: blur(7px);
+    }
+
+    .userCircle{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        color: gold;
+        position: absolute;
+        background: black;
+        left: -75px;
+        top: -75px;
+        i{
+            font-size: 150px;
+        }
+    }
+
+    .dropSet{
+        position: absolute;
+        right: 30px;
+        top: 10px;
+        i{
+            color: gold;
+            font-size: 25px;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid gold;
+        }
+
+        ul{
+            border: 1px solid gold;
+            position: absolute;
+            width: 150px;
+            left: -115px;
+            z-index: 1;
+            top: 35px;
+            border-radius: 5px;
+            display: none;
+            background: black;
+            a{
+                color: gold;  
+                display: block;
+                padding: 10px 5px;
+                &:hover{
+                    background: gold;
+                    color: black;
+                }
+            }
+        }
+
+        &:hover{
+            ul{
+                display: block;
+            }
+        }
+    }
+
+
+    .moreInfo{
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        .usermeName{
+            font-size: 35px;
+            color: lightgreen;
+            border: 1px solid gold;
+            padding: 10px 5px;
+            width: 95%;
+            border-radius: 10px;
+            margin: 15px auto;
+        }
+
+        .telNum{
+            font-size: 20px;
+            color: gold;
+            border: 1px solid lightgreen;
+            padding: 10px 5px;
+            width: 95%;
+            border-radius: 10px;    
+            margin: 15px auto; 
+        }
+        .nameme{
+            font-size: 20px;
+            color: gold;
+            border: 1px solid lightgreen;
+            padding: 10px 5px;
+            width: 95%;
+            border-radius: 10px;
+            margin: 0 auto;     
+        }
+    }
+}

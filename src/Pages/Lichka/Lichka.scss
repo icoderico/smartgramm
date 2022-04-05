@@ -1,6 +1,7 @@
 .lichka {
   display: grid;
   grid-template-columns: 75% 25%;
+  position: relative;
 
   .mainchat {
     position: relative;
@@ -75,7 +76,52 @@
     }
   }
 
+  #check{
+    display: none;
+  }
+
+  .labelbar{
+    color: gold;
+    font-size: 22px;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    display: none;
+  }
+
+ 
+
   .search {
+    transition: .5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .routing{
+      padding: 10px;
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      a{
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        background: rgb(47, 47, 47);
+        font-size: 30px;
+        color: grey;
+        border-radius: 20px;
+        transition: .5s;
+        &:hover{
+          background: gold;
+          color: lightgreen;
+        }
+      }
+    }
+
+
     form {
       height: 50px;
       display: flex;
@@ -115,7 +161,7 @@
 
     .stikerlar{
         width: 90%;
-        height: 580px;
+        height: 600px;
         margin: 10px auto;
         background: rgb(47, 47, 47);
         border-radius: 10px;
@@ -160,5 +206,51 @@
     font-size: 22px;
     padding: 10px 25px;
     border-radius: 15px 15px 0px 15px;
+  }
+}
+
+
+
+@media(max-width:1024px){
+  .lichka{
+    grid-template-columns: 100%;
+
+
+    .search{
+      position: fixed;
+      width: 70%;
+      top: 0;
+      left: -100%;
+      background: rgb(82, 82, 82);
+      height: 100vh;
+      border-radius: 20px;
+
+      .routing{
+        flex-direction: column;
+        a{
+          width: 100%;
+        }
+      }
+      
+      form{
+        input{
+          border-bottom: none;
+          width: 90%;
+          text-align: center;
+        }
+      }
+
+      .stikerlar{
+        display: none;
+      }
+    }
+
+    .labelbar{
+      display: block;
+    }
+
+    #check:checked ~ .search{
+      left: 0;
+    }
   }
 }

@@ -68,6 +68,10 @@
         border: 1px solid gold;
         color: gold;
         outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 2px;
         &:hover {
           background: gold;
           color: black;
@@ -177,6 +181,7 @@
                 font-size: 25px;
                 padding: 10px;
                 border-radius: 10px;
+                cursor: pointer;
                 &:hover{
                     background: grey;
                 }

@@ -42,6 +42,9 @@ const Lichka = () => {
               <button type="submit">
                 <i className="fa-solid fa-paper-plane"></i>
               </button>
+              <button>
+              <i className="fa-solid fa-rotate-right"></i>
+              </button>
             </form>
           </div>
         </div>

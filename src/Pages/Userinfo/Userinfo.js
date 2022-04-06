@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Userinfo.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../../Context/App";
+
 
 const Userinfo = () => {
-    
-  return (
+  const navigate = useNavigate()
+  // const token = localStorage.getItem("TOKEN");
+  const {  userData } = useContext(AppContext);
+  const handleClick = () => {
+    localStorage.removeItem("TOKEN")
+    navigate("/login")
+  }
+
+  return !userData ? (
+    <h1 className="loading" style={{ color: "#fff" }}> </h1>
+  ) : (
     <>
       <div className="userWrap">
         <div className="userCircle">
@@ -14,16 +25,22 @@ const Userinfo = () => {
         <div className="dropSet">
           <i className="fa-solid fa-ellipsis-vertical"></i>
           <ul>
-            <li><Link to={"/"}>Log out</Link></li>
-            <li><Link to={"/lichka"}>Go chat</Link></li>
-            <li><Link to={"/list"}>Go chatlist</Link></li>
+            <li onClick={handleClick}>
+              <Link to={"/"}>Log out</Link>
+            </li>
+            <li>
+              <Link to={"/lichka"}>Go chat</Link>
+            </li>
+            <li>
+              <Link to={"/list"}>Go chatlist</Link>
+            </li>
           </ul>
         </div>
 
         <div className="moreInfo">
-            <div className="usermeName">Shuhratbek</div>
-            <div className="telNum">+9989895996</div>
-            <div className="nameme">Ergashev Shuhrat</div>
+          <div className="usermeName">{userData?.username}</div>
+          <div className="telNum">{userData?.phone}</div>
+          <div className="nameme">{userData?.name}</div>
         </div>
       </div>
     </>

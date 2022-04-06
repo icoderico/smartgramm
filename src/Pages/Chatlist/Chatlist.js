@@ -1,52 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Chatlist.scss";
 import { Link, useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import { AppContext } from "../../Context/App";
 const Chatlist = () => {
   const navigate = useNavigate();
+  const [mychats, setChats] = useState([]);
+  const [myId, setmyId] = useState(null);
+  useEffect(() => {
+    axios
+      .get("https://telegram-alisherjon-api.herokuapp.com/users", {
+        headers: { authorization: `Bearer ${localStorage.TOKEN}` },
+      })
+      .then((response) => {
+        setChats(response.data.user.chats);
+        setmyId(response.data.user._id);
+        localStorage.setItem("userid", response.data.user._id);
+      });
+  }, []);
 
-  navigate('/lichka')
+  console.log(mychats);
+  console.log(myId);
 
   return (
     <>
       <div className="chatlistWrap">
         <ul>
-          <li onClick={navigate}>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Diyor Mirpolatov</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Dilshod Hojakov</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Shaxnoza</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Shaxnoza</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Shaxnoza</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Shaxnoza</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Shaxnoza</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Shaxnoza</div>
-          </li>
-          <li>
-            <div className="circleIcon"></div>
-            <div className="friendsName">Shaxnoza</div>
-          </li>
+          {mychats.map((chat) => (
+            <Link to={`/lichka/${chat._id}`}>
+              <li>
+                {console.log(chat.members[0])}
+                <div className="circleIcon"></div>
+                <div className="friendsName">
+                  {chat.members[0] == myId
+                    ? chat.members[1].name
+                    : chat.members[0].name}
+                </div>
+              </li>
+            </Link>
+          ))}
         </ul>
       </div>
     </>

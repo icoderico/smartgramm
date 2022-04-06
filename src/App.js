@@ -13,7 +13,6 @@ axios.defaults.headers = {
   authorization: `Bearer ${localStorage.getItem("token")}`,
 };
 
-
 function App() {
   return (
     <AppProvider>
@@ -21,7 +20,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/lichka" element={<Lichka />} />
+        <Route path="/lichka/:id" element={<Lichka />} />
         <Route path="/list" element={<Chatlist />} />
         <Route path="/user" element={<Userinfo />} />
       </Routes>

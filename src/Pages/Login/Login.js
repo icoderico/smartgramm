@@ -8,12 +8,24 @@ const Login = () => {
         <form>
           <Link to={"/register"}>Register</Link>
 
-          <input type="text" id="username" required autoComplete="off" />
+          <input
+            type="text"
+            name="username"
+            id="username"
+            required
+            autoComplete="off"
+          />
           <label htmlFor="username" className="labUs">
             Username
           </label>
 
-          <input type="text" id="password" required autoComplete="off" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            autoComplete="off"
+          />
           <label htmlFor="password" className="labPs">
             Password
           </label>

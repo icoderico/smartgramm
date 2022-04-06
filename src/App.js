@@ -5,6 +5,14 @@ import Login from "./Pages/Login/Login";
 import Lichka from "./Pages/Lichka/Lichka";
 import Chatlist from "./Pages/Chatlist/Chatlist";
 import Userinfo from "./Pages/Userinfo/Userinfo";
+import axios from "axios";
+
+axios.defaults.baseUrl = "https://telegram-alisherjon-api.herokuapp.com";
+axios.defaults.headers = {
+  authorization: `Bearer ${localStorage.getItem("token")}`,
+};
+
+
 function App() {
   return (
     <>

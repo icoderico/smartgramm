@@ -6,6 +6,7 @@ import Lichka from "./Pages/Lichka/Lichka";
 import Chatlist from "./Pages/Chatlist/Chatlist";
 import Userinfo from "./Pages/Userinfo/Userinfo";
 import axios from "axios";
+import { AppProvider } from "./Context/App";
 
 axios.defaults.baseUrl = "https://telegram-alisherjon-api.herokuapp.com";
 axios.defaults.headers = {
@@ -15,7 +16,7 @@ axios.defaults.headers = {
 
 function App() {
   return (
-    <>
+    <AppProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -24,7 +25,7 @@ function App() {
         <Route path="/list" element={<Chatlist />} />
         <Route path="/user" element={<Userinfo />} />
       </Routes>
-    </>
+    </AppProvider>
   );
 }
 

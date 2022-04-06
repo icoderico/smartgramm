@@ -152,6 +152,33 @@
 @media(max-width:700px){
     .userWrap{
         width: 300px;
+
+
+        
+    &::before{
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: gold;
+        border-radius: 50%;
+        bottom: 20px;
+        right: 50px;
+        filter: blur(7px);
+    }
+    &::after{
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        z-index: -1;
+        background: lightgreen;
+        border-radius: 50%;
+        bottom: 25px;
+        right: 180px;
+        filter: blur(7px);
+    }
+
         .userCircle{
             width: 100px;
             height: 100px;

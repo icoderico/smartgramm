@@ -51,7 +51,7 @@ const Register = () => {
           </label>
 
           <input
-            type="number"
+            type="tel"
             id="phNumber"
             name="phone"
             required

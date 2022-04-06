@@ -68,6 +68,10 @@
         border: 1px solid gold;
         color: gold;
         outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 2px;
         &:hover {
           background: gold;
           color: black;
@@ -161,7 +165,7 @@
 
     .stikerlar{
         width: 90%;
-        height: 600px;
+        height: 400px;
         margin: 10px auto;
         background: rgb(47, 47, 47);
         border-radius: 10px;
@@ -177,6 +181,7 @@
                 font-size: 25px;
                 padding: 10px;
                 border-radius: 10px;
+                cursor: pointer;
                 &:hover{
                     background: grey;
                 }

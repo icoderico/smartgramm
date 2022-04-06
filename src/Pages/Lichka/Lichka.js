@@ -4,6 +4,7 @@ import "./Lichka.scss";
 
 const Lichka = () => {
   const [emoj, setEmoj] = useState([]);
+  const [string, setString] = useState("");
 
   useEffect(() => {
     fetch("https://unpkg.com/emoji.json/emoji.json")
@@ -11,6 +12,7 @@ const Lichka = () => {
       .then((data) => setEmoj(data));
   }, []);
 
+  console.log(emoj);
 
   return (
     <>
@@ -29,9 +31,19 @@ const Lichka = () => {
           </ul>
           <div className="footchat">
             <form>
-              <input type="text" placeholder="message..." />
+              <input
+                type="text"
+                placeholder="message..."
+                value={string}
+                onChange={(e) =>
+                  setString(e.target.value)
+                }
+              />
               <button type="submit">
                 <i className="fa-solid fa-paper-plane"></i>
+              </button>
+              <button>
+              <i className="fa-solid fa-rotate-right"></i>
               </button>
             </form>
           </div>
@@ -55,18 +67,23 @@ const Lichka = () => {
           <div className="stikerlar">
             <ul>
               {emoj.map((em) => (
-                <li>{em.char}</li>
+                <li
+                  onClick={() => setString((oldString) => oldString + em.char)}
+                >
+                  {em.char}
+                </li>
               ))}
             </ul>
           </div>
 
-
-
-            <div className="routing">
-              <Link to={"/user"}><i className="fa-solid fa-user"></i></Link>
-              <Link to={"/list"}><i className="fa-solid fa-users"></i></Link>
-            </div>
-
+          <div className="routing">
+            <Link to={"/user"}>
+              <i className="fa-solid fa-user"></i>
+            </Link>
+            <Link to={"/list"}>
+              <i className="fa-solid fa-users"></i>
+            </Link>
+          </div>
         </div>
       </div>
     </>

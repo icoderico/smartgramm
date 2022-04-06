@@ -18,3 +18,25 @@ body {
 ::-webkit-scrollbar{
   display: none;
 }
+
+
+.loading {
+  width: 50px;
+  aspect-ratio: 1;
+  border: 5px dashed #fff;
+  border-radius: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  animation: aylana 10s linear infinite;
+
+}
+
+@keyframes aylana{
+  100%{
+    transform: rotate(360deg);
+  }
+}
+

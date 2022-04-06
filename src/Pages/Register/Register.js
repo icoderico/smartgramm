@@ -22,7 +22,8 @@ const Register = () => {
         const { token } = res.data;
         const { status } = res.data;
         const { user } = res.data;
-        setUserData(user)
+        console.log(user);
+        setUserData(user);
         localStorage.setItem("TOKEN", token);
         if (status === 201) {
           navigate("/user");

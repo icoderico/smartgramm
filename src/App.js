@@ -8,11 +8,10 @@ import Userinfo from "./Pages/Userinfo/Userinfo";
 import axios from "axios";
 import { AppProvider } from "./Context/App";
 
-axios.defaults.baseUrl = "https://telegram-alisherjon-api.herokuapp.com";
+axios.defaults.baseURL = "https://telegram-alisherjon-api.herokuapp.com";
 axios.defaults.headers = {
-  authorization: `Bearer ${localStorage.getItem("token")}`,
+  authorization: `Bearer ${localStorage.getItem("TOKEN")}`,
 };
-
 
 function App() {
   return (

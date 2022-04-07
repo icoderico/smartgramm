@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <>
       <div className="register">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <Link to={"/register"}>Register</Link>
 
           <input
@@ -40,7 +40,7 @@ const Login = () => {
             name="username"
             id="username"
             required
-            autoComplete="off"
+            autoComplete={false}
           />
           <label htmlFor="username" className="labUs">
             Username
@@ -51,7 +51,7 @@ const Login = () => {
             id="password"
             name="password"
             required
-            autoComplete="off"
+            autoComplete={false}
           />
           <label htmlFor="password" className="labPs">
             Password

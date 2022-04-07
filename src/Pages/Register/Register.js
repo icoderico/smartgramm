@@ -42,7 +42,7 @@ const Register = () => {
   return (
     <>
       <div className="register">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <Link to={"/login"}>I have an account</Link>
 
           <input
@@ -50,7 +50,7 @@ const Register = () => {
             id="name"
             name="name"
             required
-            autoComplete="off"
+            autoComplete={false}
           />
           <label htmlFor="name" className="labName">
             Name
@@ -61,7 +61,7 @@ const Register = () => {
             id="phNumber"
             name="phone"
             required
-            autoComplete="off"
+            autoComplete={false}
           />
           <label htmlFor="phNumber" className="labPh">
             Phone Number
@@ -72,7 +72,7 @@ const Register = () => {
             id="username"
             name="username"
             required
-            autoComplete="off"
+            autoComplete={false}
           />
           <label htmlFor="username" className="labUs">
             Username
@@ -83,7 +83,7 @@ const Register = () => {
             id="password"
             name="password"
             required
-            autoComplete="off"
+            autoComplete={false}
           />
           <label htmlFor="password" className="labPs">
             Password

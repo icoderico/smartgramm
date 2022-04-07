@@ -16,50 +16,47 @@
       gap: 10px;
       cursor: pointer;
 
+      background: rgb(31, 30, 30);
+      color: gold;
+      font-size: 22px;
+      padding: 25px 25px;
+      border-radius: 10px;
+
       .circleIcon {
         width: 70px;
         height: 70px;
         box-shadow: 0 0 5px 1px lightgreen;
         border-radius: 50%;
       }
+    }
 
-      background: rgb(31, 30, 30);
-      color: gold;
-      font-size: 22px;
-      padding: 25px 10px;
-      border-radius: 10px;
-
-      &:nth-child(odd) {
-        color: lightgreen;
-        .circleIcon {
-          box-shadow: 0 0 5px 1px lightgreen;
-        }
+    a:nth-child(odd) li {
+      color: lightgreen;
+      .circleIcon {
+        box-shadow: 0 0 5px 1px lightgreen;
       }
-      &:nth-child(even) {
-        color: gold;
-        .circleIcon {
-          box-shadow: 0 0 5px 1px gold;
-        }
+    }
+    a:nth-child(even) li {
+      color: gold;
+      .circleIcon {
+        box-shadow: 0 0 5px 1px gold;
       }
     }
   }
 }
 
-
-
-
-@media(max-width:900px){
-    .chatlistWrap{
-        width: 100%;
-        ul{
-            width: 100%;
-            li{
-                font-size: 18px;
-                .circleIcon{
-                    width: 50px;
-                    height: 50px;
-                }
-            }
+@media (max-width: 900px) {
+  .chatlistWrap {
+    width: 100%;
+    ul {
+      width: 100%;
+      li {
+        font-size: 18px;
+        .circleIcon {
+          width: 50px;
+          height: 50px;
         }
+      }
     }
+  }
 }

@@ -7,6 +7,7 @@ import Chatlist from "./Pages/Chatlist/Chatlist";
 import Userinfo from "./Pages/Userinfo/Userinfo";
 import axios from "axios";
 import { AppProvider } from "./Context/App";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 axios.defaults.baseURL = "https://telegram-alisherjon-api.herokuapp.com";
 axios.defaults.headers = {
@@ -17,12 +18,43 @@ function App() {
   return (
     <AppProvider>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/lichka/:id" element={<Lichka />} />
-        <Route path="/list" element={<Chatlist />} />
-        <Route path="/user" element={<Userinfo />} />
+
+        <Route
+          path="/lichka/:id"
+          element={
+            <ProtectedRoute>
+              <Lichka />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/list"
+          element={
+            <ProtectedRoute>
+              <Chatlist />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute>
+              <Userinfo />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </AppProvider>
   );

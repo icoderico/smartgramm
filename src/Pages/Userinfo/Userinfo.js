@@ -8,9 +8,10 @@ const Userinfo = () => {
   const navigate = useNavigate()
   // const token = localStorage.getItem("TOKEN");
   const {  userData } = useContext(AppContext);
+  console.log(userData);
   const handleClick = () => {
     localStorage.removeItem("TOKEN")
-    navigate("/login")
+    navigate("/register")
   }
 
   return !userData ? (
@@ -27,9 +28,6 @@ const Userinfo = () => {
           <ul>
             <li onClick={handleClick}>
               <Link to={"/"}>Log out</Link>
-            </li>
-            <li>
-              <Link to={"/lichka"}>Go chat</Link>
             </li>
             <li>
               <Link to={"/list"}>Go chatlist</Link>

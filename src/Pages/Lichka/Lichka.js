@@ -1,18 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./Lichka.scss";
+import axios from "axios";
+import { AppContext } from "../../Context/App";
 
 const Lichka = () => {
   const [emoj, setEmoj] = useState([]);
   const [string, setString] = useState("");
+  const [msg, setMsg] = useState([])
+  const params = useParams()
 
   useEffect(() => {
     fetch("https://unpkg.com/emoji.json/emoji.json")
       .then((res) => res.json())
-      .then((data) => setEmoj(data));
+      .then((data) => {
+        setEmoj(data)
+      });
+      axios.get(`https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`, {
+            headers: {authorization: `Bearer ${localStorage.TOKEN}`}
+        }).then(response => {
+          console.log(response, 'add')  
+            setMsg(response.data.chat.messages)
+        })
   }, []);
 
-  console.log(emoj);
+  console.log(params.id)
+  const smth = localStorage.getItem("TOKEN")
+  console.log(smth)
 
   return (
     <>
@@ -20,14 +34,16 @@ const Lichka = () => {
         <div className="mainchat">
           <div className="headchat">Friend Name</div>
           <ul className="midchat">
-            <li className="leftmes">
-              {" "}
-              <div className="inmes">Salom</div>{" "}
-            </li>
-            <li className="rightmes">
-              {" "}
-              <div className="inmes">Nma gap</div>{" "}
-            </li>
+         {msg.map(m =>{  
+           console.log(m);         
+           return(
+             <>
+                <li className={` ${ m._id == m.from ? "leftmes" : "rightmes"}`}>
+                  <div className="inmes"> {m.text} </div>{" "}
+                </li>
+             </>
+           )
+         })}
           </ul>
           <div className="footchat">
             <form>

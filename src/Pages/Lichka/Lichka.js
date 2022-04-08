@@ -1,18 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Lichka.scss";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 const Lichka = () => {
   const [emoj, setEmoj] = useState([]);
+  const [msg, setMsg] = useState([]);
   const [string, setString] = useState("");
-
+  const [username, setUsername] = useState("");
+  const token = localStorage.getItem("TOKEN");
+  const userID = localStorage.getItem("userid");
+  const params = useParams();
+  const chatId = params.id;
+  const { data, isLoading } = useQuery(
+    "lichka-zapros",
+    () => {
+      console.log("fetchinggg");
+      return axios.get(
+        `https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`,
+        {
+          headers: { authorization: `Bearer ${localStorage.TOKEN}` },
+        }
+      );
+    },
+    {
+      refetchInterval: 500,
+    }
+  );
   useEffect(() => {
     fetch("https://unpkg.com/emoji.json/emoji.json")
       .then((res) => res.json())
-      .then((data) => setEmoj(data));
+      .then((data) => {
+        setEmoj(data);
+      });
   }, []);
 
-  console.log(emoj);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { text } = Object.fromEntries(formData.entries());
+    axios
+      .post(
+        "https://telegram-alisherjon-api.herokuapp.com/messages",
+        { text, chatId },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
 
   return (
     <>
@@ -20,30 +61,27 @@ const Lichka = () => {
         <div className="mainchat">
           <div className="headchat">Friend Name</div>
           <ul className="midchat">
-            <li className="leftmes">
-              {" "}
-              <div className="inmes">Salom</div>{" "}
-            </li>
-            <li className="rightmes">
-              {" "}
-              <div className="inmes">Nma gap</div>{" "}
-            </li>
+            {data?.data.chat.messages.map((m, index) => {
+              return (
+                <ul key={index}>
+                  <li
+                    key={m._id}
+                    className={` ${m.from == userID ? "rightmes" : "leftmes"}`}
+                  >
+                    <div className="inmes"> {m.text} </div>
+                  </li>
+                </ul>
+              );
+            })}
           </ul>
           <div className="footchat">
-            <form>
-              <input
-                type="text"
-                placeholder="message..."
-                value={string}
-                onChange={(e) =>
-                  setString(e.target.value)
-                }
-              />
+            <form onSubmit={handleSubmit}>
+              <input type="text" placeholder="message..." name="text" />
               <button type="submit">
                 <i className="fa-solid fa-paper-plane"></i>
               </button>
               <button>
-              <i className="fa-solid fa-rotate-right"></i>
+                <i className="fa-solid fa-rotate-right"></i>
               </button>
             </form>
           </div>
@@ -56,7 +94,12 @@ const Lichka = () => {
 
         <div className="search">
           <form>
-            <input type="search" placeholder="Search..." />
+            <input
+              type="search"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Search..."
+            />
             <button>
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -66,8 +109,9 @@ const Lichka = () => {
 
           <div className="stikerlar">
             <ul>
-              {emoj.map((em) => (
+              {emoj.map((em, index) => (
                 <li
+                  key={index}
                   onClick={() => setString((oldString) => oldString + em.char)}
                 >
                   {em.char}

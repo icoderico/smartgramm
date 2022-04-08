@@ -1,32 +1,49 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./Lichka.scss";
 import axios from "axios";
-import { AppContext } from "../../Context/App";
 
 const Lichka = () => {
   const [emoj, setEmoj] = useState([]);
+  const [msg, setMsg] = useState([]);
   const [string, setString] = useState("");
-  const [msg, setMsg] = useState([])
-  const params = useParams()
-
+  const [username, setUsername] = useState("");
+  const token = localStorage.getItem("TOKEN");
+  const userID = localStorage.getItem("userid")
+  const params = useParams();
+  const chatId = params.id
+  
   useEffect(() => {
     fetch("https://unpkg.com/emoji.json/emoji.json")
       .then((res) => res.json())
       .then((data) => {
-        setEmoj(data)
+        setEmoj(data);
       });
-      axios.get(`https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`, {
-            headers: {authorization: `Bearer ${localStorage.TOKEN}`}
-        }).then(response => {
-          console.log(response, 'add')  
-            setMsg(response.data.chat.messages)
-        })
+    axios
+      .get(`https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`, {
+        headers: { authorization: `Bearer ${localStorage.TOKEN}` },
+      })
+      .then((response) => { 
+        setMsg(response.data.chat.messages);
+      });
   }, []);
 
-  console.log(params.id)
-  const smth = localStorage.getItem("TOKEN")
-  console.log(smth)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { text } = Object.fromEntries(formData.entries());
+    axios
+      .post("https://telegram-alisherjon-api.herokuapp.com/messages",{ text, chatId},
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
 
   return (
     <>
@@ -34,32 +51,28 @@ const Lichka = () => {
         <div className="mainchat">
           <div className="headchat">Friend Name</div>
           <ul className="midchat">
-         {msg.map(m =>{  
-           console.log(m);         
-           return(
-             <>
-                <li className={` ${ m._id == m.from ? "leftmes" : "rightmes"}`}>
-                  <div className="inmes"> {m.text} </div>{" "}
-                </li>
-             </>
-           )
-         })}
+            {msg.map((m) => {
+              return (
+                <>
+                  <li key={m._id} className={` ${m.from == userID ? "rightmes" : "leftmes"}`} >
+                    <div className="inmes"> {m.text} </div>
+                  </li>
+                </>
+              );
+            })}
           </ul>
           <div className="footchat">
-            <form>
+            <form onSubmit={handleSubmit}>
               <input
                 type="text"
                 placeholder="message..."
-                value={string}
-                onChange={(e) =>
-                  setString(e.target.value)
-                }
+                name="text"
               />
               <button type="submit">
                 <i className="fa-solid fa-paper-plane"></i>
               </button>
               <button>
-              <i className="fa-solid fa-rotate-right"></i>
+                <i className="fa-solid fa-rotate-right"></i>
               </button>
             </form>
           </div>
@@ -71,8 +84,13 @@ const Lichka = () => {
         </label>
 
         <div className="search">
-          <form>
-            <input type="search" placeholder="Search..." />
+          <form >
+            <input
+              type="search"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Search..."
+            />
             <button>
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>

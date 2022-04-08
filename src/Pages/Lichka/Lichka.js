@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./Lichka.scss";
 import axios from "axios";
+import { useQuery } from "react-query";
 
 const Lichka = () => {
   const [emoj, setEmoj] = useState([]);
@@ -9,22 +10,29 @@ const Lichka = () => {
   const [string, setString] = useState("");
   const [username, setUsername] = useState("");
   const token = localStorage.getItem("TOKEN");
-  const userID = localStorage.getItem("userid")
+  const userID = localStorage.getItem("userid");
   const params = useParams();
-  const chatId = params.id
-  
+  const chatId = params.id;
+  const { data, isLoading } = useQuery(
+    "lichka-zapros",
+    () => {
+      console.log("fetchinggg");
+      return axios.get(
+        `https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`,
+        {
+          headers: { authorization: `Bearer ${localStorage.TOKEN}` },
+        }
+      );
+    },
+    {
+      refetchInterval: 500,
+    }
+  );
   useEffect(() => {
     fetch("https://unpkg.com/emoji.json/emoji.json")
       .then((res) => res.json())
       .then((data) => {
         setEmoj(data);
-      });
-    axios
-      .get(`https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`, {
-        headers: { authorization: `Bearer ${localStorage.TOKEN}` },
-      })
-      .then((response) => { 
-        setMsg(response.data.chat.messages);
       });
   }, []);
 
@@ -33,7 +41,9 @@ const Lichka = () => {
     const formData = new FormData(e.target);
     const { text } = Object.fromEntries(formData.entries());
     axios
-      .post("https://telegram-alisherjon-api.herokuapp.com/messages",{ text, chatId},
+      .post(
+        "https://telegram-alisherjon-api.herokuapp.com/messages",
+        { text, chatId },
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -51,23 +61,22 @@ const Lichka = () => {
         <div className="mainchat">
           <div className="headchat">Friend Name</div>
           <ul className="midchat">
-            {msg.map((m) => {
+            {data?.data.chat.messages.map((m, index) => {
               return (
-                <>
-                  <li key={m._id} className={` ${m.from == userID ? "rightmes" : "leftmes"}`} >
+                <ul key={index}>
+                  <li
+                    key={m._id}
+                    className={` ${m.from == userID ? "rightmes" : "leftmes"}`}
+                  >
                     <div className="inmes"> {m.text} </div>
                   </li>
-                </>
+                </ul>
               );
             })}
           </ul>
           <div className="footchat">
             <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="message..."
-                name="text"
-              />
+              <input type="text" placeholder="message..." name="text" />
               <button type="submit">
                 <i className="fa-solid fa-paper-plane"></i>
               </button>
@@ -84,7 +93,7 @@ const Lichka = () => {
         </label>
 
         <div className="search">
-          <form >
+          <form>
             <input
               type="search"
               value={username}
@@ -100,8 +109,9 @@ const Lichka = () => {
 
           <div className="stikerlar">
             <ul>
-              {emoj.map((em) => (
+              {emoj.map((em, index) => (
                 <li
+                  key={index}
                   onClick={() => setString((oldString) => oldString + em.char)}
                 >
                   {em.char}

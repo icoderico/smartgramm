@@ -1,10 +1,12 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../../Context/App";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const { setUserData, userData } = useContext(AppContext);
+  console.log(userData);
   const handleSubmit = (e) => {
     e.preventDefault();
     const loginData = new FormData(e.target);
@@ -13,6 +15,8 @@ const Login = () => {
       .post("https://telegram-alisherjon-api.herokuapp.com/auth", data)
       .then((res) => {
         navigate("/user");
+        console.log(res.data);
+        setUserData(res.data.user);
         const { token } = res.data;
         localStorage.setItem("TOKEN", token);
       })

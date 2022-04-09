@@ -1,22 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./Lichka.scss";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { AppContext } from "../../Context/App";
 
 const Lichka = () => {
   const [emoj, setEmoj] = useState([]);
-  const [msg, setMsg] = useState([]);
+  const [members, setMembers] = useState([]);
   const [string, setString] = useState("");
   const [username, setUsername] = useState("");
   const token = localStorage.getItem("TOKEN");
   const userID = localStorage.getItem("userid");
   const params = useParams();
   const chatId = params.id;
+  //  const { userData } = useContext(AppContext);
+  //  const { _id  } = userData;
+  //  console.log(typeof _id);
+  //  useEffect(() => {
+  //    if(_id === userID) {
+  //     console.log(_id);
+  //    } else {
+  //      console.log(userID);
+  //    }
+  //    console.log(_id);
+  //  }, [_id, userID])
   const { data, isLoading } = useQuery(
     "lichka-zapros",
     () => {
-      console.log("fetchinggg");
+      // console.log("fetchinggg");
       return axios.get(
         `https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`,
         {
@@ -35,6 +47,17 @@ const Lichka = () => {
         setEmoj(data);
       });
   }, []);
+  useEffect(() => {
+    axios.get(
+      `https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`,
+      {
+        headers: { authorization: `Bearer ${localStorage.TOKEN}` },
+      }
+    ).then(res => {
+      setMembers(res.data.chat.members);
+    });
+
+  }, [])
 
   const handleSubmit = (e) => { 
     e.preventDefault();
@@ -52,36 +75,41 @@ const Lichka = () => {
       )
       .then((response) => {
         console.log(response.data);
+        e.target.reset()
       });
   };
+  // console.log(members);
 
   return (
     <>
       <div className="lichka">
         <div className="mainchat">
-          <div className="headchat">Friend Name</div>
-          <ul className="midchat">
-            {data?.data.chat.messages.map((m, index) => {
-              return (
-                <ul key={index}>
+          <div className="headchat">
+            {members.map((member) => {
+              if (userID !== member._id) {
+                return <p>{member.username}</p>;
+              }
+            })}
+          </div>
+          <div className="divmidchat">
+            <ul className="midchat">
+              {data?.data.chat.messages.map((m) => {
+                return (
                   <li
                     key={m._id}
-                    className={` ${m.from == userID ? "rightmes" : "leftmes"}`}
+                    className={` ${m.from === userID ? "rightmes" : "leftmes"}`}
                   >
                     <div className="inmes"> {m.text} </div>
                   </li>
-                </ul>
-              );
-            })}
-          </ul>
+                );
+              })}
+            </ul>
+          </div>
           <div className="footchat">
             <form onSubmit={handleSubmit}>
               <input type="text" placeholder="message..." name="text" />
               <button type="submit">
                 <i className="fa-solid fa-paper-plane"></i>
-              </button>
-              <button>
-                <i className="fa-solid fa-rotate-right"></i>
               </button>
             </form>
           </div>
@@ -96,8 +124,8 @@ const Lichka = () => {
           <form>
             <input
               type="search"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              // value={username}
+              // onChange={(e) => setUsername(e.target.value)}
               placeholder="Search..."
             />
             <button>

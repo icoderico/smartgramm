@@ -12,8 +12,6 @@ export function AppProvider({ children }) {
     if (token) {
       axios.get("/users").then((res) => setUserData(res.data.user));
     } else {
-      
-      console.log(123);
     }
   }, [token, navigate]);
 

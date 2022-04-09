@@ -1,33 +1,44 @@
 .chatlistWrap {
   ul {
     height: 100vh;
-    background: rgb(47, 47, 47);
     width: 650px;
     overflow: scroll;
     margin: 0 auto;
-    padding: 15px 15px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    padding: 1rem 0;
 
     li {
       display: flex;
       align-items: center;
       gap: 10px;
       cursor: pointer;
-
-      background: rgb(31, 30, 30);
+      background: rgb(23, 23, 23);
+      
       color: gold;
       font-size: 22px;
-      padding: 25px 25px;
-      border-radius: 10px;
+      padding: 1rem;
+
+      .friendsUsername{
+        color: rgb(105, 105, 105);
+        font-size: 20px;
+      }
 
       .circleIcon {
         width: 70px;
         height: 70px;
         box-shadow: 0 0 5px 1px lightgreen;
+        background: rgb(23, 23, 23);
         border-radius: 50%;
       }
+
+      &:hover {
+        background-color: rgb(35, 35, 35);
+      }
+    }
+
+    a:not(:last-child) li {
+      border-bottom: 1px solid rgb(47, 47, 47);
     }
 
     a:nth-child(odd) li {

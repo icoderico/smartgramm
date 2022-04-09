@@ -31,10 +31,17 @@ const Chatlist = () => {
               <li>
                 {console.log(chat.members[0])}
                 <div className="circleIcon"></div>
-                <div className="friendsName">
-                  {chat.members[0] == myId
-                    ? chat.members[1].name
-                    : chat.members[0].name}
+                <div>
+                  <div className="friendsName">
+                    {chat.members[0] == myId
+                      ? chat.members[1].name
+                      : chat.members[0].name}
+                  </div>
+                  <div className="friendsUsername">
+                    {chat.members[0] == myId
+                      ? chat.members[1].username
+                      : chat.members[0].username}
+                  </div>
                 </div>
               </li>
             </Link>

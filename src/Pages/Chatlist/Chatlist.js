@@ -17,6 +17,7 @@ const Chatlist = () => {
       .then((response) => {
         setChats(response.data.user.chats);
         setmyId(response.data.user._id);
+        console.log(response.data);
         localStorage.setItem("userid", response.data.user._id);
       });
   }, []);

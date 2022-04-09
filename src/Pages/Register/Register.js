@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Register.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -7,6 +7,13 @@ import { AppContext } from "../../Context/App";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("TOKEN")) {
+      navigate("/list");
+    }
+  }, [navigate]);
+
   const { setUserData, userData } = useContext(AppContext);
 
   console.log(userData);

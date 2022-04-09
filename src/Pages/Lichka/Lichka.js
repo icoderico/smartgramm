@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "./Lichka.scss";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -10,10 +10,15 @@ const Lichka = () => {
   const [members, setMembers] = useState([]);
   const [string, setString] = useState("");
   const [username, setUsername] = useState("");
+  const [searchName, setSearchName] = useState(null)
+  const [userSearch, setUserSearch] = useState("")
   const token = localStorage.getItem("TOKEN");
   const userID = localStorage.getItem("userid");
+  const friendId = localStorage.getItem("friendId")
   const params = useParams();
   const chatId = params.id;
+  const navigate = useNavigate()
+
   //  const { userData } = useContext(AppContext);
   //  const { _id  } = userData;
   //  console.log(typeof _id);
@@ -78,7 +83,44 @@ const Lichka = () => {
         e.target.reset()
       });
   };
-  // console.log(members);
+
+  const handleUserSearch = (e) => {
+    e.preventDefault();
+    axios
+      .get(`https://telegram-alisherjon-api.herokuapp.com/users/${userSearch}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const { data } = response;
+        console.log(data)
+        setSearchName(data)
+        const friendId = data.user._id 
+        localStorage.setItem("friendId", friendId)
+      });
+  };
+  const handleClick = () => {
+    axios
+      .post(
+        `https://telegram-alisherjon-api.herokuapp.com/chats`,
+        {
+          friendId,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        const id = response.data.chat._id;
+        localStorage.setItem("chatId", id)
+        navigate(`/lichka/${id}`);
+      });
+  };
+
 
   return (
     <>
@@ -121,11 +163,11 @@ const Lichka = () => {
         </label>
 
         <div className="search">
-          <form>
+          <form onSubmit={handleUserSearch}>
             <input
               type="search"
-              // value={username}
-              // onChange={(e) => setUsername(e.target.value)}
+              value={userSearch}
+              onChange={(e) => setUserSearch(e.target.value)}
               placeholder="Search..."
             />
             <button>
@@ -133,7 +175,11 @@ const Lichka = () => {
             </button>
           </form>
 
-          <div className="foundUser">Shuhrat77</div>
+         {searchName && (
+            <div className="foundUser" onClick={handleClick}  > 
+            {searchName.user.name}
+            </div>
+         )}
 
           <div className="stikerlar">
             <ul>

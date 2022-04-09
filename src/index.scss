@@ -12,7 +12,7 @@ img {
 }
 
 body {
-  background: rgb(23, 23, 23);
+  background: rgb(47, 47, 47);
 }
 
 ::-webkit-scrollbar{
@@ -23,14 +23,14 @@ body {
 .loading {
   width: 50px;
   aspect-ratio: 1;
-  border: 5px dashed #fff;
+  border: 5px dashed gold;
   border-radius: 50%;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  // transform: translate(-50%, -50%);
 
-  animation: aylana 10s linear infinite;
+  animation: aylana 5s linear infinite;
 
 }
 

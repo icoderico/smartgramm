@@ -10,14 +10,14 @@ const Lichka = () => {
   const [members, setMembers] = useState([]);
   const [string, setString] = useState("");
   const [username, setUsername] = useState("");
-  const [searchName, setSearchName] = useState(null)
-  const [userSearch, setUserSearch] = useState("")
+  const [searchName, setSearchName] = useState(null);
+  const [userSearch, setUserSearch] = useState("");
   const token = localStorage.getItem("TOKEN");
   const userID = localStorage.getItem("userid");
-  const friendId = localStorage.getItem("friendId")
+  const friendId = localStorage.getItem("friendId");
   const params = useParams();
   const chatId = params.id;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //  const { userData } = useContext(AppContext);
   //  const { _id  } = userData;
@@ -53,18 +53,16 @@ const Lichka = () => {
       });
   }, []);
   useEffect(() => {
-    axios.get(
-      `https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`,
-      {
+    axios
+      .get(`https://telegram-alisherjon-api.herokuapp.com/chats/${params.id}`, {
         headers: { authorization: `Bearer ${localStorage.TOKEN}` },
-      }
-    ).then(res => {
-      setMembers(res.data.chat.members);
-    });
+      })
+      .then((res) => {
+        setMembers(res.data.chat.members);
+      });
+  }, []);
 
-  }, [])
-
-  const handleSubmit = (e) => { 
+  const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { text } = Object.fromEntries(formData.entries());
@@ -80,24 +78,27 @@ const Lichka = () => {
       )
       .then((response) => {
         console.log(response.data);
-        e.target.reset()
+        e.target.reset();
       });
   };
 
   const handleUserSearch = (e) => {
     e.preventDefault();
     axios
-      .get(`https://telegram-alisherjon-api.herokuapp.com/users/${userSearch}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `https://telegram-alisherjon-api.herokuapp.com/users/${userSearch}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         const { data } = response;
-        console.log(data)
-        setSearchName(data)
-        const friendId = data.user._id 
-        localStorage.setItem("friendId", friendId)
+        console.log(data);
+        setSearchName(data);
+        const friendId = data.user._id;
+        localStorage.setItem("friendId", friendId);
       });
   };
   const handleClick = () => {
@@ -116,11 +117,10 @@ const Lichka = () => {
       )
       .then((response) => {
         const id = response.data.chat._id;
-        localStorage.setItem("chatId", id)
+        localStorage.setItem("chatId", id);
         navigate(`/lichka/${id}`);
       });
   };
-
 
   return (
     <>
@@ -149,7 +149,13 @@ const Lichka = () => {
           </div>
           <div className="footchat">
             <form onSubmit={handleSubmit}>
-              <input type="text" placeholder="message..." name="text" />
+              <input
+                type="text"
+                placeholder="message..."
+                name="text"
+                value={string}
+                onChange={(e) => setString(e.target.value)}
+              />
               <button type="submit">
                 <i className="fa-solid fa-paper-plane"></i>
               </button>
@@ -175,11 +181,11 @@ const Lichka = () => {
             </button>
           </form>
 
-         {searchName && (
-            <div className="foundUser" onClick={handleClick}  > 
-            {searchName.user.name}
+          {searchName && (
+            <div className="foundUser" onClick={handleClick}>
+              {searchName.user.name}
             </div>
-         )}
+          )}
 
           <div className="stikerlar">
             <ul>

@@ -1,4 +1,54 @@
 .chatlistWrap {
+  display: flex;
+  justify-content: center;
+
+  .search {
+    transition: .5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin: 0 auto;
+
+    form {
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      input {
+        font-size: 20px;
+        width: 100%;
+        padding: 2px 3px;
+        background: none;
+        border: none;
+        color: wheat;
+        outline: none;
+        border-bottom: 1px solid gold;
+        &::placeholder{
+            color: gold;
+        }
+      }
+
+      button{
+          color: gold;
+          font-size: 22px;
+          background: none;
+          border: none;
+      }
+    }
+
+    .foundUser{
+        width: 90%;
+        margin: 0 auto;
+        background: rgb(31, 31, 31);
+        text-align: center;
+        padding: 15px 0;
+        border-radius: 10px;
+        color: lightgreen;
+        cursor: pointer;
+    }
+  }
+
   ul {
     height: 100vh;
     width: 650px;

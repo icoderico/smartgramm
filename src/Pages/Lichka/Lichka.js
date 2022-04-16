@@ -61,7 +61,6 @@ const Lichka = () => {
         setMembers(res.data.chat.members);
       });
   }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -81,7 +80,6 @@ const Lichka = () => {
         e.target.reset();
       });
   };
-
   const handleUserSearch = (e) => {
     e.preventDefault();
     axios
@@ -169,23 +167,8 @@ const Lichka = () => {
         </label>
 
         <div className="search">
-          <form onSubmit={handleUserSearch}>
-            <input
-              type="search"
-              value={userSearch}
-              onChange={(e) => setUserSearch(e.target.value)}
-              placeholder="Search..."
-            />
-            <button>
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
 
-          {searchName && (
-            <div className="foundUser" onClick={handleClick}>
-              {searchName.user.name}
-            </div>
-          )}
+        
 
           <div className="stikerlar">
             <ul>
@@ -209,6 +192,7 @@ const Lichka = () => {
             </Link>
           </div>
         </div>
+        
       </div>
     </>
   );

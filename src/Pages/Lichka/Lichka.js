@@ -66,18 +66,21 @@ const Lichka = () => {
     const formData = new FormData(e.target);
     const { text } = Object.fromEntries(formData.entries());
     axios
-      .post(
-        "https://telegram-alisherjon-api.herokuapp.com/messages",
-        { text, chatId },
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      )
+    .post(
+      "https://telegram-alisherjon-api.herokuapp.com/messages",
+      { text, chatId },
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
-        console.log(response.data);
-        e.target.reset();
+        // console.log(response.data);
+        // console.log(e.target.text);
+
+        e.target.reset()  
+        setString('')
+        // console.log(e.target.value);
       });
   };
   const handleUserSearch = (e) => {
@@ -125,9 +128,9 @@ const Lichka = () => {
       <div className="lichka">
         <div className="mainchat">
           <div className="headchat">
-            {members.map((member) => {
+            {members.map((member, index) => {
               if (userID !== member._id) {
-                return <p>{member.username}</p>;
+                return <p key={index}>{member.username}</p>;
               }
             })}
           </div>
